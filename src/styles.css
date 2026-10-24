@@ -6608,15 +6608,15 @@ textarea::placeholder {
 .admin-metric-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .admin-metric {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 18px 22px;
+  gap: 18px;
+  padding: 20px 24px;
   border-radius: 14px;
   background: #fff;
   border: 1px solid var(--line);
