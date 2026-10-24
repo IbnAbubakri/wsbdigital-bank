@@ -481,7 +481,8 @@ ol {
   display: flex;
   flex-direction: column;
   line-height: 1.02;
-  text-align: left;
+  text-align: center;
+  align-items: center;
 }
 
 .brand-text strong {
