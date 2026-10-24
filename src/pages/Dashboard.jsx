@@ -154,7 +154,7 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
   return (
     <>
       <div className="balance-hero">
-        <div>
+        <div className="balance-hero-main">
           <span className="eyebrow light">Total available balance</span>
           <strong className="balance-total">{currency(total)}</strong>
           <p className="balance-sub">
@@ -169,14 +169,22 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
             </button>
           </div>
         </div>
-        <div className="balance-split">
-          <div>
-            <span>Checking</span>
+        <div className="balance-hero-grid">
+          <div className="balance-card">
+            <div className="balance-card-head">
+              <span className="icon-tile soft"><Icon name="wallet" size={18} /></span>
+              <span>Checking</span>
+            </div>
             <strong>{currency(checking?.available || 0)}</strong>
+            <small>Available balance</small>
           </div>
-          <div>
-            <span>Savings</span>
+          <div className="balance-card">
+            <div className="balance-card-head">
+              <span className="icon-tile soft"><Icon name="chart" size={18} /></span>
+              <span>Savings</span>
+            </div>
             <strong>{currency(savings?.available || 0)}</strong>
+            <small>Available balance</small>
           </div>
         </div>
       </div>
@@ -879,15 +887,15 @@ export default function Dashboard() {
         <div className="dash-head">
           <div>
             <span className="eyebrow">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}</span>
-            <h1>{displayName(user)}</h1>
-            <p className="muted">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+            <h1>Welcome back, {displayName(user).split(' ')[0]}</h1>
+            <p className="muted">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
           </div>
           <div className="dash-head-actions">
             <button className="btn btn-outline" onClick={() => setModal('deposit')}>
               <Icon name="plus" size={16} /> Deposit
             </button>
             <button className="btn btn-primary" onClick={() => goTab('transfers')}>
-              <Icon name="transfer" size={16} /> Transfer
+              <Icon name="transfer" size={16} /> Transfer money
             </button>
           </div>
         </div>
