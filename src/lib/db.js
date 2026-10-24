@@ -248,11 +248,11 @@ export const getTransfers = (userId) =>
     .filter((t) => t.userId === userId)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 
-export const getSessionUid = () => localStorage.getItem(SESSION_KEY)
+export const getSessionUid = () => sessionStorage.getItem(SESSION_KEY)
 
-export const setSession = (id) => localStorage.setItem(SESSION_KEY, id)
+export const setSession = (id) => sessionStorage.setItem(SESSION_KEY, id)
 
-export const clearSession = () => localStorage.removeItem(SESSION_KEY)
+export const clearSession = () => sessionStorage.removeItem(SESSION_KEY)
 
 export function login(email, password) {
   const user = findByEmail(email)
