@@ -485,10 +485,10 @@ ol {
 }
 
 .brand-text strong {
-  font-size: 0.32rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  font-weight: 600;
 }
 
 .brand-text small {
