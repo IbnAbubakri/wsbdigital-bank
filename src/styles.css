@@ -2060,7 +2060,9 @@ ol {
   position: sticky;
   top: 0;
   z-index: 70;
-  background: #fff;
+  background: rgba(255, 253, 248, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -2069,7 +2071,7 @@ ol {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  height: 68px;
+  height: 78px;
 }
 
 .appbar-left {
@@ -2348,6 +2350,7 @@ ol {
   background: #102b4d;
   color: #cfe0f7;
   font-size: 0.76rem;
+  margin-top: -1px;
 }
 
 .dash-banner .container {
@@ -2366,6 +2369,7 @@ ol {
 .admin-banner {
   background: #2a1d05;
   color: #f3d9a8;
+  margin-top: -1px;
 }
 
 .admin-banner .icon {
