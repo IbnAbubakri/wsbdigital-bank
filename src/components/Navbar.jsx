@@ -94,7 +94,7 @@ export default function Navbar() {
           <Logo />
         </Link>
 
-        <nav className="nav-links" aria-label="Main">
+        <nav className="nav-links" aria-label="Main navigation">
           {links.map((l) => (
             <NavLink
               key={l.to}
@@ -108,10 +108,10 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions">
-          <Link to={home} className="btn btn-ghost btn-sm">
+          <Link to={home} className="btn btn-ghost btn-sm nav-action-link">
             {user ? 'Go to portal' : 'Sign in'}
           </Link>
-          <Link to="/signup" className="btn btn-outline btn-sm">
+          <Link to="/signup" className="btn btn-primary btn-sm">
             Open an account
           </Link>
           <button
@@ -130,25 +130,28 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div id="mobile-menu" ref={menuRef} className="mobile-menu" role="menu">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className="mobile-link"
-              role="menuitem"
-              onClick={() => setOpen(false)}
-            >
-              {l.label}
-            </NavLink>
-          ))}
-          <Link to={home} className="mobile-link" role="menuitem" onClick={() => setOpen(false)}>
-            {user ? 'Go to portal' : 'Sign in'}
-          </Link>
-          <Link to="/signup" className="btn btn-primary btn-block" onClick={() => setOpen(false)}>
-            Open an account
-          </Link>
+        <div id="mobile-menu" ref={menuRef} className="mobile-menu" role="menu" aria-label="Mobile navigation">
+          <div className="mobile-menu-inner">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.end}
+                className={({ isActive }) => (isActive ? 'mobile-link active' : 'mobile-link')}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </NavLink>
+            ))}
+            <div className="mobile-menu-divider" />
+            <Link to={home} className="mobile-link" role="menuitem" onClick={() => setOpen(false)}>
+              {user ? 'Go to portal' : 'Sign in'}
+            </Link>
+            <Link to="/signup" className="btn btn-primary btn-block" onClick={() => setOpen(false)}>
+              Open an account
+            </Link>
+          </div>
         </div>
       )}
     </header>
