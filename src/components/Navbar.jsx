@@ -111,7 +111,7 @@ export default function Navbar() {
           <Link to={home} className="btn btn-sm nav-action-link" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)', color: '#fff', boxShadow: '0 2px 10px rgba(37,99,235,0.3)', border: 'none', fontWeight: 600 }}>
             {user ? 'Go to portal' : 'Sign in'}
           </Link>
-          <Link to="/signup" className="btn btn-ghost btn-sm" style={{ border: '1px solid var(--line)', background: '#fff' }}>
+          <Link to="/signup" className="btn btn-primary btn-sm" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)', color: '#fff', boxShadow: '0 2px 10px rgba(37,99,235,0.3)', border: 'none', fontWeight: 600 }}>
             Open an account
           </Link>
           <button
