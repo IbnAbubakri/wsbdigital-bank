@@ -480,13 +480,14 @@ ol {
 .brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.05;
-  text-align: center;
+  line-height: 1.02;
+  text-align: left;
 }
 
 .brand-text strong {
-  font-size: 0.8rem;
-  letter-spacing: -0.01em;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   font-weight: 700;
 }
 
