@@ -348,8 +348,8 @@ export default function Admin() {
         <div className="dash-head">
           <div>
             <span className="eyebrow">Administration</span>
-            <h1>Admin console</h1>
-            <p className="muted">Review applications, manage balances, and audit activity.</p>
+            <h1>Member control center</h1>
+            <p className="muted">Review applications, manage balances, and oversee member activity.</p>
           </div>
           <div className="dash-head-actions">
             <Link to="/admin/reset-transfers" className="btn btn-outline">
@@ -361,23 +361,61 @@ export default function Admin() {
           </div>
         </div>
 
-        <div className="stat-grid four">
-          <div className="stat-card">
-            <span className="icon-tile"><Icon name="users" size={18} /></span>
-            <div><span>Members</span><strong>{stats.members}</strong></div>
+        <div className="admin-hero">
+          <div>
+            <span className="admin-hero-kicker">Total member assets</span>
+            <strong className="admin-hero-total">{currency(stats.assets)}</strong>
+            <p className="admin-hero-sub">{stats.members} members · {stats.active} active · {stats.pending} pending</p>
           </div>
-          <div className="stat-card">
-            <span className="icon-tile amber"><Icon name="clock" size={18} /></span>
-            <div><span>Pending review</span><strong>{stats.pending}</strong></div>
+          <div className="admin-hero-stats">
+            <div className="admin-hero-stat">
+              <span>Members</span>
+              <strong>{stats.members}</strong>
+            </div>
+            <div className="admin-hero-stat">
+              <span>Active</span>
+              <strong>{stats.active}</strong>
+            </div>
+            <div className="admin-hero-stat">
+              <span>Pending</span>
+              <strong>{stats.pending}</strong>
+            </div>
+            <div className="admin-hero-stat">
+              <span>Suspended</span>
+              <strong>{stats.suspended || 0}</strong>
+            </div>
           </div>
-          <div className="stat-card">
-            <span className="icon-tile green"><Icon name="check" size={18} /></span>
-            <div><span>Active accounts</span><strong>{stats.active}</strong></div>
-          </div>
-          <div className="stat-card">
-            <span className="icon-tile"><Icon name="chart" size={18} /></span>
-            <div><span>Member assets</span><strong>{currency(stats.assets)}</strong></div>
-          </div>
+        </div>
+
+        <div className="admin-metric-grid">
+          <article className="admin-metric">
+            <div>
+              <span>Members</span>
+              <strong>{stats.members}</strong>
+            </div>
+            <span className="admin-pill">Directory</span>
+          </article>
+          <article className="admin-metric">
+            <div>
+              <span>Active</span>
+              <strong>{stats.active}</strong>
+            </div>
+            <span className="admin-pill success">In good standing</span>
+          </article>
+          <article className="admin-metric">
+            <div>
+              <span>Pending review</span>
+              <strong>{stats.pending}</strong>
+            </div>
+            <span className="admin-pill warn">Needs action</span>
+          </article>
+          <article className="admin-metric">
+            <div>
+              <span>Member assets</span>
+              <strong>{currency(stats.assets)}</strong>
+            </div>
+            <span className="admin-pill">Across accounts</span>
+          </article>
         </div>
 
         <section className="panel">
