@@ -82,11 +82,11 @@ export default function Home() {
               advice — built to feel simple, human, and fast, wherever you bank.
             </p>
             <div className="hero-actions">
-              <Link to="/login" className="btn btn-primary btn-lg">
+              <Link to="/login" className="btn btn-primary btn-lg" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)', boxShadow: '0 8px 24px rgba(37, 99, 235, 0.4)', border: 'none', fontWeight: 600 }}>
                 Sign in to online banking
                 <Icon name="arrow" size={18} />
               </Link>
-              <Link to="/products" className="btn btn-outline btn-lg">
+              <Link to="/products" className="btn btn-outline-light btn-lg" style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.4)', color: '#fff', fontWeight: 600 }}>
                 See what we offer
               </Link>
             </div>
