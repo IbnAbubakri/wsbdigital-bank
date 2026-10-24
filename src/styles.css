@@ -455,12 +455,12 @@ ol {
 .brand-vertical {
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 0;
 }
 
 .brand-mark {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   display: grid;
   place-items: center;
   padding: 0;
