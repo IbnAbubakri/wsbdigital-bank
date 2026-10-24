@@ -2384,7 +2384,7 @@ ol {
 }
 
 .dash-container {
-  padding-bottom: 80px;
+  padding-bottom: 90px;
 }
 
 .dash-head {
@@ -2528,7 +2528,7 @@ ol {
 .dash-main {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 32px;
   min-width: 0;
 }
 

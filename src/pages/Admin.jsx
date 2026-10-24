@@ -418,9 +418,12 @@ export default function Admin() {
           </article>
         </div>
 
-        <section className="panel">
+        <section className="panel panel-elevated">
           <div className="panel-head admin-panel-head">
-            <h2>Members</h2>
+            <div>
+              <h2>Members</h2>
+              <p className="panel-sub">Manage accounts and review applications</p>
+            </div>
             <div className="admin-controls">
               <label className="search">
                 <Icon name="filter" size={16} />
