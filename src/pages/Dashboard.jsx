@@ -150,134 +150,188 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
   const pct = Math.min((used / limit) * 100, 100)
   const checking = user.accounts?.find((a) => a.type === 'Checking')
   const savings = user.accounts?.find((a) => a.type === 'Savings')
+  const monthTxs = txs.filter((t) => monthKey(t.date) === monthKey(new Date().toISOString()))
+  const activeCards = user.cards?.filter((c) => c.status !== 'frozen').length || 0
 
   return (
     <>
-      <div className="balance-hero">
-        <div className="balance-hero-main">
-          <span className="eyebrow light">Total available balance</span>
-          <strong className="balance-total">{currency(total)}</strong>
-          <p className="balance-sub">
-            Across {user.accounts?.length || 0} accounts · Member since {formatDate(user.createdAt)}
-          </p>
-          <div className="balance-actions">
-            <button className="btn btn-light" onClick={() => goTab('transfers')}>
-              <Icon name="transfer" size={16} /> Transfer money
+      <div className="dash-hero">
+        <div className="dash-hero-content">
+          <div>
+            <span className="dash-hero-kicker">Portfolio overview</span>
+            <div className="dash-hero-balance">
+              <span className="dash-hero-label">Total balance</span>
+              <strong className="dash-hero-total">{currency(total)}</strong>
+            </div>
+            <p className="dash-hero-sub">
+              {user.accounts?.length || 0} linked accounts · Member since {formatDate(user.createdAt)}
+            </p>
+          </div>
+          <div className="dash-hero-actions">
+            <button className="btn btn-primary" onClick={() => goTab('transfers')}>
+              <Icon name="transfer" size={16} /> Send money
             </button>
-            <button className="btn btn-outline-light" onClick={() => onModal('deposit')}>
+            <button className="btn btn-ghost" onClick={() => onModal('deposit')}>
               <Icon name="plus" size={16} /> Deposit
             </button>
+            <button className="btn btn-ghost" onClick={() => onModal('billpay')}>
+              <Icon name="building" size={16} /> Pay bill
+            </button>
           </div>
         </div>
-        <div className="balance-hero-grid">
-          <div className="balance-card">
-            <div className="balance-card-head">
-              <span className="icon-tile soft"><Icon name="wallet" size={18} /></span>
-              <span>Checking</span>
-            </div>
+        <div className="dash-hero-metrics">
+          <div className="dash-metric">
+            <span className="dash-metric-label">Checking</span>
             <strong>{currency(checking?.available || 0)}</strong>
-            <small>Available balance</small>
+            <span className="dash-metric-meta">{checking?.number || '—'}</span>
           </div>
-          <div className="balance-card">
-            <div className="balance-card-head">
-              <span className="icon-tile soft"><Icon name="chart" size={18} /></span>
-              <span>Savings</span>
-            </div>
+          <div className="dash-metric">
+            <span className="dash-metric-label">Savings</span>
             <strong>{currency(savings?.available || 0)}</strong>
-            <small>Available balance</small>
+            <span className="dash-metric-meta">{savings?.number || '—'}</span>
+          </div>
+          <div className="dash-metric">
+            <span className="dash-metric-label">Transfers this cycle</span>
+            <strong>{used} / {limit}</strong>
+            <span className="dash-metric-meta">{Math.max(limit - used, 0)} remaining</span>
+          </div>
+          <div className="dash-metric">
+            <span className="dash-metric-label">Active cards</span>
+            <strong>{activeCards}</strong>
+            <span className="dash-metric-meta">{user.cards?.length || 0} total</span>
           </div>
         </div>
       </div>
 
-      <div className="stat-grid">
-        <div className="stat-card">
-          <span className="icon-tile"><Icon name="trend" size={18} /></span>
-          <div>
-            <span>This month</span>
-            <strong>{txs.filter((t) => monthKey(t.date) === monthKey(new Date().toISOString())).length} transactions</strong>
-          </div>
-        </div>
-        <div className="stat-card">
-          <span className="icon-tile"><Icon name="transfer" size={18} /></span>
-          <div>
-            <span>Transfers used</span>
-            <strong>{used} of {limit} this cycle</strong>
-          </div>
-        </div>
-        <div className="stat-card">
-          <span className="icon-tile"><Icon name="card" size={18} /></span>
-          <div>
-            <span>Cards</span>
-            <strong>{user.cards?.filter((c) => c.status !== 'frozen').length || 0} active</strong>
-          </div>
-        </div>
-      </div>
-
-      <div className="overview-main">
-        <section className="panel">
+      <div className="dash-grid">
+        <section className="panel panel-elevated">
           <div className="panel-head">
             <div>
-              <h2>Recent activity</h2>
-              <p className="panel-sub">Everything that moved, newest first.</p>
+              <h2>Recent transactions</h2>
+              <p className="panel-sub">Latest activity across all accounts</p>
             </div>
-            <button className="link-btn" onClick={() => goTab('statements')}>See all</button>
+            <div className="panel-actions">
+              <button className="link-btn" onClick={() => goTab('statements')}>View all</button>
+            </div>
           </div>
-          <div className="tx-list">
-            {txs.slice(0, 6).map((tx) => <TxRow key={tx.id} tx={tx} />)}
-            {!txs.length && <Empty title="No activity yet" text="Transactions will appear here." />}
+          <div className="tx-table">
+            {txs.slice(0, 8).map((tx) => (
+              <div key={tx.id} className="tx-table-row">
+                <div className="tx-table-main">
+                  <span className={`tx-dot ${tx.type === 'credit' ? 'credit' : 'debit'}`} />
+                  <div>
+                    <strong>{tx.description}</strong>
+                    <span>{tx.category} · {formatDate(tx.date)}</span>
+                  </div>
+                </div>
+                <div className="tx-table-meta">
+                  <span className={tx.type === 'credit' ? 'tx-amount credit' : 'tx-amount debit'}>
+                    {tx.type === 'credit' ? '+' : '-'} {currency(tx.amount)}
+                  </span>
+                  <span className="tx-account">{tx.accountType}</span>
+                </div>
+              </div>
+            ))}
+            {!txs.length && <Empty title="No activity yet" text="Your transactions will appear here." />}
           </div>
         </section>
 
-        <aside className="overview-side">
-          <section className="panel panel-compact">
+        <aside className="dash-aside">
+          <section className="panel panel-elevated panel-compact">
             <div className="panel-head">
-              <h2>Transfer allowance</h2>
-              <span className="panel-tag">{Math.max(limit - used, 0)} left</span>
+              <div>
+                <h2>Transfer allowance</h2>
+                <p className="panel-sub">Monthly limit</p>
+              </div>
+              <span className="panel-pill">{Math.max(limit - used, 0)} left</span>
             </div>
-            <div className="progress"><span style={{ width: `${pct}%` }} /></div>
-            <div className="progress-meta">
-              <span>{used} of {limit} used this cycle</span>
+            <div className="allowance-bar">
+              <span style={{ width: `${pct}%` }} />
+            </div>
+            <div className="allowance-meta">
+              <span>{used} used</span>
+              <span>{limit} total</span>
             </div>
             {used >= limit && (
               <div className="alert alert-warn">
-                Allowance reached. An administrator can reset it from the admin console.
+                Allowance reached. Contact an administrator to reset it.
               </div>
             )}
           </section>
 
-          <section className="panel panel-compact">
-            <div className="panel-head"><h2>Quick actions</h2></div>
-            <div className="quick-actions-grid">
-              <button className="quick-action" onClick={() => onModal('billpay')}>
-                <span className="icon-tile"><Icon name="building" size={19} /></span>
-                <span>Pay a bill</span>
+          <section className="panel panel-elevated panel-compact">
+            <div className="panel-head">
+              <div>
+                <h2>Quick actions</h2>
+                <p className="panel-sub">Frequently used</p>
+              </div>
+            </div>
+            <div className="quick-grid">
+              <button className="quick-tile" onClick={() => onModal('billpay')}>
+                <span className="quick-icon"><Icon name="building" size={18} /></span>
+                <div>
+                  <strong>Pay bill</strong>
+                  <span>Utilities & services</span>
+                </div>
               </button>
-              <button className="quick-action" onClick={() => onModal('deposit')}>
-                <span className="icon-tile"><Icon name="download" size={19} /></span>
-                <span>Deposit a check</span>
+              <button className="quick-tile" onClick={() => onModal('deposit')}>
+                <span className="quick-icon"><Icon name="download" size={18} /></span>
+                <div>
+                  <strong>Mobile deposit</strong>
+                  <span>Deposit a check</span>
+                </div>
               </button>
-              <button className="quick-action" onClick={() => goTab('statements')}>
-                <span className="icon-tile"><Icon name="chart" size={19} /></span>
-                <span>Statements</span>
+              <button className="quick-tile" onClick={() => goTab('transfers')}>
+                <span className="quick-icon"><Icon name="transfer" size={18} /></span>
+                <div>
+                  <strong>Transfer</strong>
+                  <span>Move funds</span>
+                </div>
               </button>
-              <button className="quick-action" onClick={() => goTab('cards')}>
-                <span className="icon-tile"><Icon name="card" size={19} /></span>
-                <span>Manage cards</span>
+              <button className="quick-tile" onClick={() => goTab('cards')}>
+                <span className="quick-icon"><Icon name="card" size={18} /></span>
+                <div>
+                  <strong>Cards</strong>
+                  <span>Manage cards</span>
+                </div>
               </button>
+            </div>
+          </section>
+
+          <section className="panel panel-elevated panel-compact">
+            <div className="panel-head">
+              <div>
+                <h2>This month</h2>
+                <p className="panel-sub">At a glance</p>
+              </div>
+            </div>
+            <div className="month-stats">
+              <div>
+                <span>Transactions</span>
+                <strong>{monthTxs.length}</strong>
+              </div>
+              <div>
+                <span>Active cards</span>
+                <strong>{activeCards}</strong>
+              </div>
+              <div>
+                <span>Accounts</span>
+                <strong>{user.accounts?.length || 0}</strong>
+              </div>
             </div>
           </section>
         </aside>
       </div>
 
-      <section className="panel">
+      <section className="panel panel-elevated">
         <div className="panel-head">
           <div>
-            <h2>Accounts</h2>
-            <p className="panel-sub">Balances update as you move money.</p>
+            <h2>Linked accounts</h2>
+            <p className="panel-sub">Full account details and activity</p>
           </div>
-          <button className="link-btn" onClick={() => goTab('statements')}>View activity</button>
+          <button className="link-btn" onClick={() => goTab('statements')}>View statements</button>
         </div>
-        <div className="account-grid">
+        <div className="account-list">
           {(user.accounts || []).map((a) => (
             <AccountCard key={a.id} account={a} onCopy={onCopy} />
           ))}
