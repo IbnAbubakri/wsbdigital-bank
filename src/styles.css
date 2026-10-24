@@ -6288,6 +6288,7 @@ textarea::placeholder {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
+  min-width: 0;
 }
 
 .dash-metric-label {
@@ -6296,13 +6297,16 @@ textarea::placeholder {
 }
 
 .dash-metric strong {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
   letter-spacing: -0.03em;
+  word-break: break-word;
+  font-variant-numeric: tabular-nums;
 }
 
 .dash-metric-meta {
   color: rgba(233, 239, 235, 0.6);
   font-size: 0.84rem;
+  word-break: break-word;
 }
 
 .dash-grid {
@@ -6499,5 +6503,19 @@ textarea::placeholder {
 
   .account-list {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .dash-hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-metric {
+    padding: 14px 16px;
+  }
+
+  .dash-metric strong {
+    font-size: clamp(1.6rem, 7vw, 2rem);
   }
 }
