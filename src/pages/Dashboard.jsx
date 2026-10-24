@@ -155,63 +155,63 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
 
   return (
     <>
-      <div className="dash-hero">
+      <div className="dash-hero" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 60px -20px rgba(15,23,42,0.5)' }}>
         <div className="dash-hero-content">
           <div>
-            <span className="dash-hero-kicker">Portfolio overview</span>
+            <span className="dash-hero-kicker" style={{ background: 'rgba(37,99,235,0.2)', color: '#93c5fd', border: '1px solid rgba(147,197,253,0.3)' }}>Dashboard</span>
             <div className="dash-hero-balance">
-              <span className="dash-hero-label">Total balance</span>
-              <strong className="dash-hero-total">{currency(total)}</strong>
+              <span className="dash-hero-label" style={{ color: '#94a3b8' }}>Total balance</span>
+              <strong className="dash-hero-total" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', letterSpacing: '-0.02em' }}>{currency(total)}</strong>
             </div>
-            <p className="dash-hero-sub">
+            <p className="dash-hero-sub" style={{ color: '#cbd5e1' }}>
               {user.accounts?.length || 0} linked accounts · Member since {formatDate(user.createdAt)}
             </p>
           </div>
           <div className="dash-hero-actions">
-            <button className="btn btn-primary" onClick={() => goTab('transfers')}>
+            <button className="btn btn-primary" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }} onClick={() => goTab('transfers')}>
               <Icon name="transfer" size={16} /> Send money
             </button>
-            <button className="btn btn-ghost" onClick={() => onModal('deposit')}>
+            <button className="btn btn-ghost" style={{ background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)' }} onClick={() => onModal('deposit')}>
               <Icon name="plus" size={16} /> Deposit
             </button>
-            <button className="btn btn-ghost" onClick={() => onModal('billpay')}>
+            <button className="btn btn-ghost" style={{ background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)' }} onClick={() => onModal('billpay')}>
               <Icon name="building" size={16} /> Pay bill
             </button>
           </div>
         </div>
         <div className="dash-hero-metrics">
-          <div className="dash-metric">
-            <span className="dash-metric-label">Checking</span>
-            <strong>{currency(checking?.available || 0)}</strong>
-            <span className="dash-metric-meta">{checking?.number || '—'}</span>
+          <div className="dash-metric" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)' }}>
+            <span className="dash-metric-label" style={{ color: '#94a3b8' }}>Checking</span>
+            <strong style={{ color: '#fff' }}>{currency(checking?.available || 0)}</strong>
+            <span className="dash-metric-meta" style={{ color: '#cbd5e1' }}>{checking?.number || '—'}</span>
           </div>
-          <div className="dash-metric">
-            <span className="dash-metric-label">Savings</span>
-            <strong>{currency(savings?.available || 0)}</strong>
-            <span className="dash-metric-meta">{savings?.number || '—'}</span>
+          <div className="dash-metric" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)' }}>
+            <span className="dash-metric-label" style={{ color: '#94a3b8' }}>Savings</span>
+            <strong style={{ color: '#fff' }}>{currency(savings?.available || 0)}</strong>
+            <span className="dash-metric-meta" style={{ color: '#cbd5e1' }}>{savings?.number || '—'}</span>
           </div>
-          <div className="dash-metric">
-            <span className="dash-metric-label">Transfers this cycle</span>
-            <strong>{used} / {limit}</strong>
-            <span className="dash-metric-meta">{Math.max(limit - used, 0)} remaining</span>
+          <div className="dash-metric" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)' }}>
+            <span className="dash-metric-label" style={{ color: '#94a3b8' }}>Transfers this cycle</span>
+            <strong style={{ color: '#fff' }}>{used} / {limit}</strong>
+            <span className="dash-metric-meta" style={{ color: '#cbd5e1' }}>{Math.max(limit - used, 0)} remaining</span>
           </div>
-          <div className="dash-metric">
-            <span className="dash-metric-label">Active cards</span>
-            <strong>{activeCards}</strong>
-            <span className="dash-metric-meta">{user.cards?.length || 0} total</span>
+          <div className="dash-metric" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)' }}>
+            <span className="dash-metric-label" style={{ color: '#94a3b8' }}>Active cards</span>
+            <strong style={{ color: '#fff' }}>{activeCards}</strong>
+            <span className="dash-metric-meta" style={{ color: '#cbd5e1' }}>{user.cards?.length || 0} total</span>
           </div>
         </div>
       </div>
 
       <div className="dash-grid">
-        <section className="panel panel-elevated">
+        <section className="panel panel-elevated" style={{ boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>
           <div className="panel-head">
             <div>
-              <h2>Recent transactions</h2>
+              <h2 style={{ fontSize: '1.25rem' }}>Recent transactions</h2>
               <p className="panel-sub">Latest activity across all accounts</p>
             </div>
             <div className="panel-actions">
-              <button className="link-btn" onClick={() => goTab('statements')}>View all</button>
+              <button className="link-btn" style={{ color: 'var(--blue)', fontWeight: 500 }} onClick={() => goTab('statements')}>View all →</button>
             </div>
           </div>
           <div className="tx-table">
@@ -237,13 +237,13 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
         </section>
 
         <aside className="dash-aside">
-          <section className="panel panel-elevated panel-compact">
+          <section className="panel panel-elevated panel-compact" style={{ boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
             <div className="panel-head">
               <div>
-                <h2>Transfer allowance</h2>
+                <h2 style={{ fontSize: '1.1rem' }}>Transfer allowance</h2>
                 <p className="panel-sub">Monthly limit</p>
               </div>
-              <span className="panel-pill">{Math.max(limit - used, 0)} left</span>
+              <span className="panel-pill" style={{ background: 'var(--blue-soft)', color: 'var(--blue)' }}>{Math.max(limit - used, 0)} left</span>
             </div>
             <div className="allowance-bar">
               <span style={{ width: `${pct}%` }} />
@@ -259,10 +259,10 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
             )}
           </section>
 
-          <section className="panel panel-elevated panel-compact">
+          <section className="panel panel-elevated panel-compact" style={{ boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
             <div className="panel-head">
               <div>
-                <h2>Quick actions</h2>
+                <h2 style={{ fontSize: '1.1rem' }}>Quick actions</h2>
                 <p className="panel-sub">Frequently used</p>
               </div>
             </div>
@@ -298,10 +298,10 @@ function Overview({ user, txs, onModal, goTab, onCopy }) {
             </div>
           </section>
 
-          <section className="panel panel-elevated panel-compact">
+          <section className="panel panel-elevated panel-compact" style={{ boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
             <div className="panel-head">
               <div>
-                <h2>This month</h2>
+                <h2 style={{ fontSize: '1.1rem' }}>This month</h2>
                 <p className="panel-sub">At a glance</p>
               </div>
             </div>

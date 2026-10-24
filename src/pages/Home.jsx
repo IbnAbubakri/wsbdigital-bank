@@ -110,35 +110,31 @@ export default function Home() {
             <div className="preview-window">
               <div className="preview-bar">
                 <span className="preview-dots"><i /><i /><i /></span>
-                <span className="preview-title">Member portal</span>
-                <span className="preview-live"><span className="dot green" />Live balances</span>
+                <span className="preview-title">My Accounts</span>
+                <span className="preview-live"><span className="dot green" />Secure</span>
               </div>
               <div className="preview-body">
                 <div className="preview-balance">
                   <div>
-                    <span>Available balance</span>
-                    <strong>$12,480.55</strong>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>Total available</span>
+                    <strong style={{ fontSize: '2rem', letterSpacing: '-0.02em' }}>$12,480.55</strong>
                   </div>
-                  <span className="preview-delta">+2.4% this month</span>
+                  <span className="preview-delta" style={{ background: 'var(--green-soft)', color: 'var(--green)', padding: '4px 10px', borderRadius: '999px', fontWeight: 600 }}>+2.4% this month</span>
                 </div>
-                <div className="preview-chart-label">
-                  <span>30-day balance trend</span>
-                  <span>Checking</span>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '16px' }}>
+                  <div style={{ padding: '12px', background: 'linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%)', borderRadius: '10px', border: '1px solid var(--line)' }}>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--muted)', marginBottom: '4px' }}>Checking</div>
+                    <div style={{ fontWeight: 600, fontSize: '1.05rem' }}>$8,245.30</div>
+                  </div>
+                  <div style={{ padding: '12px', background: 'linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%)', borderRadius: '10px', border: '1px solid var(--line)' }}>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--muted)', marginBottom: '4px' }}>Savings</div>
+                    <div style={{ fontWeight: 600, fontSize: '1.05rem' }}>$4,235.25</div>
+                  </div>
                 </div>
-                <svg className="preview-chart" viewBox="0 0 320 84" preserveAspectRatio="none">
-                  <path
-                    d="M0 66 C24 62 36 48 58 50 C82 52 92 38 118 41 C144 44 156 30 182 34 C208 38 220 22 246 26 C272 30 292 16 320 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M0 66 C24 62 36 48 58 50 C82 52 92 38 118 41 C144 44 156 30 182 34 C208 38 220 22 246 26 C272 30 292 16 320 12 L320 84 L0 84 Z"
-                    fill="currentColor"
-                    opacity="0.08"
-                  />
-                </svg>
+                <div className="preview-chart-label" style={{ marginTop: '16px' }}>
+                  <span>Recent activity</span>
+                  <span style={{ color: 'var(--blue)', fontWeight: 500 }}>View all</span>
+                </div>
                 <ul className="preview-list">
                   <li>
                     <span className="preview-icon"><Icon name="wallet" size={15} /></span>
@@ -157,12 +153,12 @@ export default function Home() {
                   </li>
                 </ul>
                 <div className="preview-foot">
-                  <span>Checking •• 8059</span>
-                  <span>Savings •• 3387</span>
+                  <span>Last updated just now</span>
+                  <span style={{ color: 'var(--green)', display: 'flex', alignItems: 'center', gap: '4px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--green)' }}></span> All systems operational</span>
                 </div>
               </div>
             </div>
-            <p className="preview-note">Secure, real-time access to every account.</p>
+            <p className="preview-note">Bank securely from anywhere, anytime.</p>
           </div>
         </div>
       </section>
