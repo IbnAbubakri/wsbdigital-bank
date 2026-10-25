@@ -469,15 +469,15 @@ ol {
 }
 
 .brand-mark {
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
 }
 
 .brand-mark img {
@@ -490,21 +490,18 @@ ol {
 .brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.02;
-  text-align: center;
-  align-items: center;
+  line-height: 1.1;
 }
 
 .brand-text strong {
-  font-size: 0.16rem;
-  letter-spacing: 0.16em;
-  text-transform: none;
-  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  font-weight: 700;
 }
 
 .brand-text small {
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
