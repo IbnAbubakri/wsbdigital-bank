@@ -317,18 +317,61 @@ export function rejectUser(id) {
   return updateUser(id, { role: 'pending', status: 'rejected' })
 }
 
-export function createUserByAdmin({ email, password, name, checking = 0, savings = 0 }) {
+export function createUserByAdmin({
+  email,
+  password,
+  name,
+  firstName,
+  lastName,
+  checking = 0,
+  savings = 0,
+  personalInfo = {},
+  contact = {},
+  documents = {},
+  accountsData,
+  dob,
+  nationality,
+  maritalStatus,
+  address,
+  phone,
+  alternativeEmail,
+  emergencyContact,
+  idType,
+  idNumber,
+} = {}) {
   if (findByEmail(email)) throw new Error('An account with this email already exists.')
+  const fName = firstName || (name ? name.split(' ')[0] : '')
+  const lName = lastName || (name ? name.split(' ').slice(1).join(' ') : '')
+  const fullName = name || [fName, lName].filter(Boolean).join(' ') || email.split('@')[0]
   const user = makeUser({
     email,
     password,
-    name,
+    name: fullName,
     role: 'user',
     status: 'active',
     createdAt: new Date().toISOString(),
-    personalInfo: { firstName: name.split(' ')[0] || name, lastName: name.split(' ').slice(1).join(' ') },
-    accounts: makeAccounts(checking, savings),
-    cards: makeCards(name),
+    personalInfo: {
+      firstName: fName,
+      lastName: lName,
+      dob,
+      nationality,
+      maritalStatus,
+      address,
+      ...personalInfo,
+    },
+    contact: {
+      phone,
+      alternativeEmail,
+      emergencyContact,
+      ...contact,
+    },
+    documents: {
+      idType,
+      idNumber,
+      ...documents,
+    },
+    accounts: accountsData || makeAccounts(checking, savings),
+    cards: makeCards(fullName),
     invitation: true,
   })
   const users = getUsers()

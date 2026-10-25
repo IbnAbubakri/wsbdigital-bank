@@ -278,7 +278,30 @@ export default function Admin() {
   const [status, setStatus] = useState('all')
   const [selectedId, setSelectedId] = useState(null)
   const [createOpen, setCreateOpen] = useState(false)
-  const [newMember, setNewMember] = useState({ name: '', email: '', password: '', checking: '', savings: '' })
+  const [newMember, setNewMember] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firstName: '',
+    lastName: '',
+    dob: '',
+    nationality: '',
+    maritalStatus: '',
+    street: '',
+    city: '',
+    state: '',
+    country: '',
+    postalCode: '',
+    phone: '',
+    alternativeEmail: '',
+    emergencyName: '',
+    emergencyRelation: '',
+    emergencyPhone: '',
+    idType: 'Passport',
+    idNumber: '',
+    checking: '',
+    savings: '',
+  })
 
   const users = getUsers()
   const members = users.filter((u) => u.role !== 'admin')
@@ -308,19 +331,66 @@ export default function Admin() {
   const create = (e) => {
     e.preventDefault()
     try {
-      if (!newMember.name.trim()) throw new Error('Enter the member name.')
+      if (!newMember.firstName.trim()) throw new Error('Enter first name.')
+      if (!newMember.lastName.trim()) throw new Error('Enter last name.')
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newMember.email)) throw new Error('Enter a valid email.')
       if (newMember.password.length < 8) throw new Error('Password must be at least 8 characters.')
+      if (newMember.confirmPassword !== newMember.password) throw new Error('Passwords do not match.')
+      const fullName = `${newMember.firstName.trim()} ${newMember.lastName.trim()}`
       createUserByAdmin({
-        name: newMember.name.trim(),
+        name: fullName,
+        firstName: newMember.firstName.trim(),
+        lastName: newMember.lastName.trim(),
         email: newMember.email.trim(),
         password: newMember.password,
         checking: Number(newMember.checking) || 0,
         savings: Number(newMember.savings) || 0,
+        dob: newMember.dob,
+        nationality: newMember.nationality,
+        maritalStatus: newMember.maritalStatus,
+        address: {
+          street: newMember.street,
+          city: newMember.city,
+          state: newMember.state,
+          country: newMember.country,
+          postalCode: newMember.postalCode,
+        },
+        phone: newMember.phone,
+        alternativeEmail: newMember.alternativeEmail,
+        emergencyContact: {
+          name: newMember.emergencyName,
+          relationship: newMember.emergencyRelation,
+          phone: newMember.emergencyPhone,
+        },
+        idType: newMember.idType,
+        idNumber: newMember.idNumber,
       })
       push('Member created and activated.', 'success')
       setCreateOpen(false)
-      setNewMember({ name: '', email: '', password: '', checking: '', savings: '' })
+      setNewMember({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        firstName: '',
+        lastName: '',
+        dob: '',
+        nationality: '',
+        maritalStatus: '',
+        street: '',
+        city: '',
+        state: '',
+        country: '',
+        postalCode: '',
+        phone: '',
+        alternativeEmail: '',
+        emergencyName: '',
+        emergencyRelation: '',
+        emergencyPhone: '',
+        idType: 'Passport',
+        idNumber: '',
+        checking: '',
+        savings: '',
+      })
     } catch (err) {
       push(err.message, 'error')
     }
@@ -579,30 +649,153 @@ export default function Admin() {
         onClose={() => setCreateOpen(false)}
         title="Create a member"
         subtitle="Skips the application queue and activates immediately"
+        wide
       >
         <form className="form" onSubmit={create}>
-          <label className="field">
-            <span>Full name</span>
-            <input value={newMember.name} onChange={(e) => setNewMember((m) => ({ ...m, name: e.target.value }))} placeholder="Taylor Reed" />
-          </label>
-          <label className="field">
-            <span>Email</span>
-            <input type="email" value={newMember.email} onChange={(e) => setNewMember((m) => ({ ...m, email: e.target.value }))} placeholder="taylor@example.com" />
-          </label>
-          <label className="field">
-            <span>Temporary password</span>
-            <input type="text" value={newMember.password} onChange={(e) => setNewMember((m) => ({ ...m, password: e.target.value }))} placeholder="At least 8 characters" />
-          </label>
-          <div className="form-row">
-            <label className="field">
-              <span>Opening checking</span>
-              <input type="number" min="0" step="0.01" value={newMember.checking} onChange={(e) => setNewMember((m) => ({ ...m, checking: e.target.value }))} placeholder="0.00" />
-            </label>
-            <label className="field">
-              <span>Opening savings</span>
-              <input type="number" min="0" step="0.01" value={newMember.savings} onChange={(e) => setNewMember((m) => ({ ...m, savings: e.target.value }))} placeholder="0.00" />
-            </label>
+          <div className="panel-inset" style={{ padding: '16px' }}>
+            <h3 style={{ marginBottom: '12px' }}>Account Information</h3>
+            <div className="form-row">
+              <label className="field">
+                <span>Email address</span>
+                <input type="email" value={newMember.email} onChange={(e) => setNewMember((m) => ({ ...m, email: e.target.value }))} placeholder="member@example.com" />
+              </label>
+            </div>
+            <div className="form-row">
+              <label className="field">
+                <span>Password</span>
+                <input type="password" value={newMember.password} onChange={(e) => setNewMember((m) => ({ ...m, password: e.target.value }))} placeholder="At least 8 characters" />
+              </label>
+              <label className="field">
+                <span>Confirm Password</span>
+                <input type="password" value={newMember.confirmPassword} onChange={(e) => setNewMember((m) => ({ ...m, confirmPassword: e.target.value }))} placeholder="Re-enter password" />
+              </label>
+            </div>
           </div>
+
+          <div className="panel-inset" style={{ padding: '16px' }}>
+            <h3 style={{ marginBottom: '12px' }}>Personal Information</h3>
+            <div className="form-row">
+              <label className="field">
+                <span>First Name</span>
+                <input value={newMember.firstName} onChange={(e) => setNewMember((m) => ({ ...m, firstName: e.target.value }))} placeholder="First name" />
+              </label>
+              <label className="field">
+                <span>Last Name</span>
+                <input value={newMember.lastName} onChange={(e) => setNewMember((m) => ({ ...m, lastName: e.target.value }))} placeholder="Last name" />
+              </label>
+            </div>
+            <div className="form-row">
+              <label className="field">
+                <span>Date of Birth</span>
+                <input type="date" value={newMember.dob} onChange={(e) => setNewMember((m) => ({ ...m, dob: e.target.value }))} />
+              </label>
+              <label className="field">
+                <span>Nationality</span>
+                <input value={newMember.nationality} onChange={(e) => setNewMember((m) => ({ ...m, nationality: e.target.value }))} placeholder="e.g., American" />
+              </label>
+              <label className="field">
+                <span>Marital Status</span>
+                <select value={newMember.maritalStatus} onChange={(e) => setNewMember((m) => ({ ...m, maritalStatus: e.target.value }))}>
+                  <option value="">Select</option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Divorced">Divorced</option>
+                  <option value="Widowed">Widowed</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div className="panel-inset" style={{ padding: '16px' }}>
+            <h3 style={{ marginBottom: '12px' }}>Address Information</h3>
+            <label className="field">
+              <span>Street Address</span>
+              <input value={newMember.street} onChange={(e) => setNewMember((m) => ({ ...m, street: e.target.value }))} placeholder="123 Main St" />
+            </label>
+            <div className="form-row">
+              <label className="field">
+                <span>City</span>
+                <input value={newMember.city} onChange={(e) => setNewMember((m) => ({ ...m, city: e.target.value }))} placeholder="City" />
+              </label>
+              <label className="field">
+                <span>State/Province</span>
+                <input value={newMember.state} onChange={(e) => setNewMember((m) => ({ ...m, state: e.target.value }))} placeholder="State" />
+              </label>
+            </div>
+            <div className="form-row">
+              <label className="field">
+                <span>Country</span>
+                <input value={newMember.country} onChange={(e) => setNewMember((m) => ({ ...m, country: e.target.value }))} placeholder="Country" />
+              </label>
+              <label className="field">
+                <span>Postal Code</span>
+                <input value={newMember.postalCode} onChange={(e) => setNewMember((m) => ({ ...m, postalCode: e.target.value }))} placeholder="ZIP/Postal code" />
+              </label>
+            </div>
+          </div>
+
+          <div className="panel-inset" style={{ padding: '16px' }}>
+            <h3 style={{ marginBottom: '12px' }}>Contact Information</h3>
+            <div className="form-row">
+              <label className="field">
+                <span>Phone Number</span>
+                <input value={newMember.phone} onChange={(e) => setNewMember((m) => ({ ...m, phone: e.target.value }))} placeholder="+1 555 000 0000" />
+              </label>
+              <label className="field">
+                <span>Alternative Email</span>
+                <input type="email" value={newMember.alternativeEmail} onChange={(e) => setNewMember((m) => ({ ...m, alternativeEmail: e.target.value }))} placeholder="alt@example.com" />
+              </label>
+            </div>
+            <h4 style={{ marginTop: '16px', marginBottom: '10px', fontSize: '0.95rem' }}>Emergency Contact</h4>
+            <div className="form-row">
+              <label className="field">
+                <span>Contact Name</span>
+                <input value={newMember.emergencyName} onChange={(e) => setNewMember((m) => ({ ...m, emergencyName: e.target.value }))} placeholder="Full name" />
+              </label>
+              <label className="field">
+                <span>Relationship</span>
+                <input value={newMember.emergencyRelation} onChange={(e) => setNewMember((m) => ({ ...m, emergencyRelation: e.target.value }))} placeholder="e.g., Spouse, Parent" />
+              </label>
+              <label className="field">
+                <span>Contact Phone</span>
+                <input value={newMember.emergencyPhone} onChange={(e) => setNewMember((m) => ({ ...m, emergencyPhone: e.target.value }))} placeholder="+1 555 000 0000" />
+              </label>
+            </div>
+          </div>
+
+          <div className="panel-inset" style={{ padding: '16px' }}>
+            <h3 style={{ marginBottom: '12px' }}>Identification Document</h3>
+            <div className="form-row">
+              <label className="field">
+                <span>ID Type</span>
+                <select value={newMember.idType} onChange={(e) => setNewMember((m) => ({ ...m, idType: e.target.value }))}>
+                  <option value="Passport">Passport</option>
+                  <option value="Driver's License">Driver's License</option>
+                  <option value="National ID">National ID</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label className="field grow">
+                <span>ID Number</span>
+                <input value={newMember.idNumber} onChange={(e) => setNewMember((m) => ({ ...m, idNumber: e.target.value }))} placeholder="ID number" />
+              </label>
+            </div>
+          </div>
+
+          <div className="panel-inset" style={{ padding: '16px' }}>
+            <h3 style={{ marginBottom: '12px' }}>Initial Balances</h3>
+            <div className="form-row">
+              <label className="field">
+                <span>Opening checking</span>
+                <input type="number" min="0" step="0.01" value={newMember.checking} onChange={(e) => setNewMember((m) => ({ ...m, checking: e.target.value }))} placeholder="0.00" />
+              </label>
+              <label className="field">
+                <span>Opening savings</span>
+                <input type="number" min="0" step="0.01" value={newMember.savings} onChange={(e) => setNewMember((m) => ({ ...m, savings: e.target.value }))} placeholder="0.00" />
+              </label>
+            </div>
+          </div>
+
           <div className="alert alert-info">
             <Icon name="shield" size={16} /> The new member can sign in immediately with this password.
           </div>
