@@ -647,23 +647,29 @@ export default function Admin() {
       <Modal
         open={createOpen}
         onClose={() => setCreateOpen(false)}
-        title="Create a member"
-        subtitle="Skips the application queue and activates immediately"
+        title="Create new member"
+        subtitle="Add a member account with complete profile information"
         wide
       >
-        <form className="form" onSubmit={create}>
-          <div className="panel-inset" style={{ padding: '16px' }}>
-            <h3 style={{ marginBottom: '12px' }}>Account Information</h3>
+        <form className="form" onSubmit={create} style={{ gap: '20px' }}>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span className="icon-tile" style={{ width: '40px', height: '40px' }}><Icon name="shield" size={18} /></span>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Account Credentials</h3>
+                <p className="muted small">Login details for the new member</p>
+              </div>
+            </div>
             <div className="form-row">
               <label className="field">
                 <span>Email address</span>
-                <input type="email" value={newMember.email} onChange={(e) => setNewMember((m) => ({ ...m, email: e.target.value }))} placeholder="member@example.com" />
+                <input type="email" value={newMember.email} onChange={(e) => setNewMember((m) => ({ ...m, email: e.target.value }))} placeholder="member@wsbdigital.com" />
               </label>
             </div>
             <div className="form-row">
               <label className="field">
                 <span>Password</span>
-                <input type="password" value={newMember.password} onChange={(e) => setNewMember((m) => ({ ...m, password: e.target.value }))} placeholder="At least 8 characters" />
+                <input type="password" value={newMember.password} onChange={(e) => setNewMember((m) => ({ ...m, password: e.target.value }))} placeholder="Minimum 8 characters" />
               </label>
               <label className="field">
                 <span>Confirm Password</span>
@@ -672,8 +678,14 @@ export default function Admin() {
             </div>
           </div>
 
-          <div className="panel-inset" style={{ padding: '16px' }}>
-            <h3 style={{ marginBottom: '12px' }}>Personal Information</h3>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span className="icon-tile" style={{ width: '40px', height: '40px' }}><Icon name="users" size={18} /></span>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Personal Information</h3>
+                <p className="muted small">Basic identity details</p>
+              </div>
+            </div>
             <div className="form-row">
               <label className="field">
                 <span>First Name</span>
@@ -696,7 +708,7 @@ export default function Admin() {
               <label className="field">
                 <span>Marital Status</span>
                 <select value={newMember.maritalStatus} onChange={(e) => setNewMember((m) => ({ ...m, maritalStatus: e.target.value }))}>
-                  <option value="">Select</option>
+                  <option value="">Select status</option>
                   <option value="Single">Single</option>
                   <option value="Married">Married</option>
                   <option value="Divorced">Divorced</option>
@@ -706,11 +718,17 @@ export default function Admin() {
             </div>
           </div>
 
-          <div className="panel-inset" style={{ padding: '16px' }}>
-            <h3 style={{ marginBottom: '12px' }}>Address Information</h3>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span className="icon-tile" style={{ width: '40px', height: '40px' }}><Icon name="building" size={18} /></span>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Address Information</h3>
+                <p className="muted small">Residential address details</p>
+              </div>
+            </div>
             <label className="field">
               <span>Street Address</span>
-              <input value={newMember.street} onChange={(e) => setNewMember((m) => ({ ...m, street: e.target.value }))} placeholder="123 Main St" />
+              <input value={newMember.street} onChange={(e) => setNewMember((m) => ({ ...m, street: e.target.value }))} placeholder="123 Main Street" />
             </label>
             <div className="form-row">
               <label className="field">
@@ -719,7 +737,7 @@ export default function Admin() {
               </label>
               <label className="field">
                 <span>State/Province</span>
-                <input value={newMember.state} onChange={(e) => setNewMember((m) => ({ ...m, state: e.target.value }))} placeholder="State" />
+                <input value={newMember.state} onChange={(e) => setNewMember((m) => ({ ...m, state: e.target.value }))} placeholder="State/Province" />
               </label>
             </div>
             <div className="form-row">
@@ -734,37 +752,51 @@ export default function Admin() {
             </div>
           </div>
 
-          <div className="panel-inset" style={{ padding: '16px' }}>
-            <h3 style={{ marginBottom: '12px' }}>Contact Information</h3>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span className="icon-tile" style={{ width: '40px', height: '40px' }}><Icon name="phone" size={18} /></span>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Contact Information</h3>
+                <p className="muted small">Phone and emergency contact details</p>
+              </div>
+            </div>
             <div className="form-row">
               <label className="field">
                 <span>Phone Number</span>
-                <input value={newMember.phone} onChange={(e) => setNewMember((m) => ({ ...m, phone: e.target.value }))} placeholder="+1 555 000 0000" />
+                <input value={newMember.phone} onChange={(e) => setNewMember((m) => ({ ...m, phone: e.target.value }))} placeholder="+1 (555) 000-0000" />
               </label>
               <label className="field">
                 <span>Alternative Email</span>
-                <input type="email" value={newMember.alternativeEmail} onChange={(e) => setNewMember((m) => ({ ...m, alternativeEmail: e.target.value }))} placeholder="alt@example.com" />
+                <input type="email" value={newMember.alternativeEmail} onChange={(e) => setNewMember((m) => ({ ...m, alternativeEmail: e.target.value }))} placeholder="alternate@example.com" />
               </label>
             </div>
-            <h4 style={{ marginTop: '16px', marginBottom: '10px', fontSize: '0.95rem' }}>Emergency Contact</h4>
-            <div className="form-row">
-              <label className="field">
-                <span>Contact Name</span>
-                <input value={newMember.emergencyName} onChange={(e) => setNewMember((m) => ({ ...m, emergencyName: e.target.value }))} placeholder="Full name" />
-              </label>
-              <label className="field">
-                <span>Relationship</span>
-                <input value={newMember.emergencyRelation} onChange={(e) => setNewMember((m) => ({ ...m, emergencyRelation: e.target.value }))} placeholder="e.g., Spouse, Parent" />
-              </label>
-              <label className="field">
-                <span>Contact Phone</span>
-                <input value={newMember.emergencyPhone} onChange={(e) => setNewMember((m) => ({ ...m, emergencyPhone: e.target.value }))} placeholder="+1 555 000 0000" />
-              </label>
+            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
+              <h4 style={{ margin: '0 0 12px', fontSize: '0.9rem', fontWeight: 600 }}>Emergency Contact</h4>
+              <div className="form-row">
+                <label className="field">
+                  <span>Contact Name</span>
+                  <input value={newMember.emergencyName} onChange={(e) => setNewMember((m) => ({ ...m, emergencyName: e.target.value }))} placeholder="Full name" />
+                </label>
+                <label className="field">
+                  <span>Relationship</span>
+                  <input value={newMember.emergencyRelation} onChange={(e) => setNewMember((m) => ({ ...m, emergencyRelation: e.target.value }))} placeholder="e.g., Spouse, Parent" />
+                </label>
+                <label className="field">
+                  <span>Contact Phone</span>
+                  <input value={newMember.emergencyPhone} onChange={(e) => setNewMember((m) => ({ ...m, emergencyPhone: e.target.value }))} placeholder="+1 (555) 000-0000" />
+                </label>
+              </div>
             </div>
           </div>
 
-          <div className="panel-inset" style={{ padding: '16px' }}>
-            <h3 style={{ marginBottom: '12px' }}>Identification Document</h3>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span className="icon-tile" style={{ width: '40px', height: '40px' }}><Icon name="lock" size={18} /></span>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Identification Document</h3>
+                <p className="muted small">Document verification details</p>
+              </div>
+            </div>
             <div className="form-row">
               <label className="field">
                 <span>ID Type</span>
@@ -777,29 +809,35 @@ export default function Admin() {
               </label>
               <label className="field grow">
                 <span>ID Number</span>
-                <input value={newMember.idNumber} onChange={(e) => setNewMember((m) => ({ ...m, idNumber: e.target.value }))} placeholder="ID number" />
+                <input value={newMember.idNumber} onChange={(e) => setNewMember((m) => ({ ...m, idNumber: e.target.value }))} placeholder="Enter ID number" />
               </label>
             </div>
           </div>
 
-          <div className="panel-inset" style={{ padding: '16px' }}>
-            <h3 style={{ marginBottom: '12px' }}>Initial Balances</h3>
+          <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '12px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span className="icon-tile" style={{ width: '40px', height: '40px' }}><Icon name="wallet" size={18} /></span>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Initial Account Balances</h3>
+                <p className="muted small">Starting balances for checking and savings</p>
+              </div>
+            </div>
             <div className="form-row">
               <label className="field">
-                <span>Opening checking</span>
+                <span>Opening Checking Balance</span>
                 <input type="number" min="0" step="0.01" value={newMember.checking} onChange={(e) => setNewMember((m) => ({ ...m, checking: e.target.value }))} placeholder="0.00" />
               </label>
               <label className="field">
-                <span>Opening savings</span>
+                <span>Opening Savings Balance</span>
                 <input type="number" min="0" step="0.01" value={newMember.savings} onChange={(e) => setNewMember((m) => ({ ...m, savings: e.target.value }))} placeholder="0.00" />
               </label>
             </div>
           </div>
 
-          <div className="alert alert-info">
-            <Icon name="shield" size={16} /> The new member can sign in immediately with this password.
+          <div style={{ display: 'flex', gap: '12px', paddingTop: '8px' }}>
+            <button type="button" className="btn btn-ghost" style={{ flex: 1 }} onClick={() => setCreateOpen(false)}>Cancel</button>
+            <button className="btn btn-primary" style={{ flex: 2 }}>Create Member Account</button>
           </div>
-          <button className="btn btn-primary btn-block">Create member</button>
         </form>
       </Modal>
     </div>
