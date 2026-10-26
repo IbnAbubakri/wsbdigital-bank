@@ -471,49 +471,6 @@ ol {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-}
-
-.brand-vertical {
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.brand-mark {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.brand-mark img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
-  filter: none;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  text-align: center;
-  align-items: center;
-}
-
-.brand-text strong {
-  font-size: 0.5rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--ink);
 }
 
 .nav-links {
