@@ -468,16 +468,21 @@ ol {
   gap: 0;
 }
 
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
 .brand-mark {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: grid;
   place-items: center;
-  padding: 6px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  box-shadow: var(--shadow-sm);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .brand-mark img {
@@ -489,22 +494,7 @@ ol {
 }
 
 .brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.brand-text strong {
-  font-size: 0.95rem;
-  letter-spacing: -0.01em;
-  font-weight: 700;
-}
-
-.brand-text small {
-  color: var(--muted);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  display: none;
 }
 
 .nav-links {
