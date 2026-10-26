@@ -459,25 +459,11 @@ ol {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
 }
 
 .brand-vertical {
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-}
-
-.brand-mark {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
 }
 
 .brand-vertical {
